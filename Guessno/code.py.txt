@@ -1,0 +1,47 @@
+import random
+
+class NumberGuessingGame:
+    def __init__(self, lower_bound, upper_bound):
+        self.lower_bound = lower_bound
+        self.upper_bound = upper_bound
+        self.secret_number = random.randint(lower_bound, upper_bound)
+        self.attempts = 0
+
+    def play(self):
+        print(f"{player_name}, we are going to play a game. I am thinking of a number between {self.lower_bound} and {self.upper_bound}")
+
+        while True:
+            guess = input("Go ahead. Guess: ")
+
+            if not guess.isdigit():
+                print(f"I don't think that {guess} is a number. Sorry")
+                continue
+
+            guess = int(guess)
+
+            if guess < self.lower_bound or guess > self.upper_bound:
+                print("Silly Goose! That number isn't in the range!")
+                print(f"Please enter a number between {self.lower_bound} and {self.upper_bound}")
+                continue
+
+            self.attempts += 1
+
+            if guess < self.secret_number:
+                print("The guess of the number that you have entered is too low")
+            elif guess > self.secret_number:
+                print("The guess of the number that you have entered is too high")
+            else:
+                print(f"Congratulations {player_name}! You guessed the number {self.secret_number} "
+                      f"in {self.attempts} attempts.")
+                break
+
+def main():
+    lower_bound = 1
+    upper_bound = 200
+    game = NumberGuessingGame(lower_bound, upper_bound)
+    game.play()
+
+if __name__ == "__main__":
+    player_name = input("May I ask you for your name? ")
+    main()
+    exit()
